@@ -1,30 +1,24 @@
-const JWT = require("jsonwebtoken")
+const JWT = require("jsonwebtoken");
 
-const secret = "Super@Dooper"
+const secret = "Super@Dooper";
 
-function createtokenforuser(user){
+function createtokenforuser(user) {
+  const payload = {
+    email: user.email,
+    password: user.password,
+  };
 
-const payload = {
-    
-    email:user.email,
-    password:user.password
+  const token = JWT.sign(payload, secret);
 
+  return token;
 }
 
-const token = JWT.sign(payload,secret)
-
-return token;
-
-}
-
-function validatetoken(token){
-    const payload = JWT.verify(token,secret)
-    return payload
+function validatetoken(token) {
+  const payload = JWT.verify(token, secret);
+  return payload;
 }
 
 module.exports = {
-    validatetoken,
-    createtokenforuser
-}
-
-
+  validatetoken,
+  createtokenforuser,
+};
